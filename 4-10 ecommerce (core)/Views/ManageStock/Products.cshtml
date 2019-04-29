@@ -1,0 +1,96 @@
+﻿@using ecommerce.data
+@using _4_10_ecommerce__core_.Models
+@model ProductsViewModel
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h2>Products under @Model.Category.Name</h2>
+<div class="well">
+    <form method="post" action="/managestock/addproduct" enctype="multipart/form-data">
+        <input type="text" name="name" placeholder="Product Name" />
+        <br />
+        <input type="hidden" value="@Model.Category.Id" name="categoryId" />
+        <br />
+        <input type="text" name="description" placeholder="Description" />
+        <br />
+        <input type="text" name="price" placeholder="price" />
+        <br />
+        <input type="file" name="picFile" />
+        <button class="btn btn-primary" id="add-product">Add Product</button>
+    </form>
+</div>
+<div class="row" id="products-row">
+    @foreach (Product product in Model.Products)
+    {
+        <div class="col-sm-4 col-lg-4 col-md-4">
+            <div class="thumbnail">
+                <img style="width: 300px; height:250px" src="/productImages/@product.Image" alt="">
+                <div class="caption">
+                    <h4 class="pull-right">@product.Price.ToString("C")</h4>
+                    <h4>
+                        <button class="btn btn-success product" data-id="@product.Id" data-name="@product.Name" data-price="@product.Price"
+                                data-desc="@product.Description" data-cat-id="@product.CategoryId" data-pic="@product.Image" data-toggle="modal" data-target="#product-modal">
+                            @product.Name
+                        </button>
+                    </h4>
+                    <p>@product.DescriptionShort</p>
+                    <br />
+                    <a href="/managestock/deleteproduct?id=@product.Id&catId=@product.CategoryId" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+<!-- Modal -->
+<div id="product-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <form method="post" action="/managestock/editproduct" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <input type="text" name="name" id="mod-name" placeholder="Product Name" />
+                        <br />
+                        <input type="hidden" value="@Model.Category.Id" name="categoryId" id="mod-cat-id" />
+                        <br />
+                        <textarea rows="3" cols="60" name="description" id="mod-desc" placeholder="Description"></textarea>
+                        <br />
+
+
+                        <input type="text" name="price" id="mod-price" placeholder="price" />
+
+                        <input type="hidden" name="id" id="mod-id" />
+
+                        <br />
+
+
+                        <img id="mod-image"  style="width: 300px; height:250px" src="" alt="">
+                        <input id="mod-image-holder" type="hidden" name="image" value="" />
+                        <h5>Choose new picture</h5>
+                        <input type="file" name="picFile" id="mod-pic" />
+
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success">Update product</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/js/ManageProducts.js"></script>
+}

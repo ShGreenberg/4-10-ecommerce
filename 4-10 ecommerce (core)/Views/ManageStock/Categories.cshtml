@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "AddCategory";
+}
+@using ecommerce.data
+@model IEnumerable<Category>
+
+<h2>AddCategory</h2>
+<div class="well">
+    <input type="text" id="cat-name" name="name" placeholder="Category Name" />
+    <br />
+    <br />
+    <button id="add-cat" class="btn btn-primary">Add Category</button>
+</div>
+<br />
+<div class="container">
+    <div class="col-lg-5">
+        <table id="cat-table" class="table table-bordered">
+            <tr>
+                <th>Category</th>
+                <th>Products</th>
+                <th>Edit</th>
+            </tr>
+           
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div id="edit-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Update Category</h4>
+            </div>
+            <div class="modal-body">
+                <p><input type="text" id="cat-update" /></p>
+            </div>
+            <div class="modal-footer">
+                @*<button id="btn-delete" class="btn btn-danger">Delete</button>*@
+                <button id="btn-update" class="btn btn-primary">Update</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/js/categories.js"></script>
+}

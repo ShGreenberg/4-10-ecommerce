@@ -1,0 +1,96 @@
+﻿@using ecommerce.data
+@model _4_10_ecommerce__core_.Models.ProductPageViewModel
+@{
+    ViewData["Title"] = "ProductPage";
+}
+
+<h2 class="col-md-6 col-md-offset-4">ProductPage</h2>
+
+
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-9 col-md-offset-1">
+
+            <div class="thumbnail">
+                <img class="img-responsive" style="width: 750px; height: 450px" src="~/productImages/@Model.Product.Image" alt="">
+                <div class="caption-full">
+                    <h4 class="pull-right">@Model.Product.Price.ToString("C")</h4>
+                    <h4>
+                        <a href="#">@Model.Product.Name</a>
+                    </h4>
+
+                    <p>@Model.Product.Description</p>
+                    <input type="hidden" id="product-id" value="@Model.Product.Id" />
+                    <input type="hidden" id="shopper-id" value="" />
+                    <div class="text-right">
+                        <select id="quantity">
+                            @for (int i = 1; i < 11; i++)
+                            {
+                                <option value="@i">@i</option>
+                            }
+                        </select>
+                        <button id="add-to-cart" class="btn btn-success" >Add to Cart</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>Item was succesfully added to cart</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Keep Shopping</button>
+                <a href="/home/viewcart" class="btn btn-success" id="view-cart">View Cart</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<div id="already-added" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    this item was already added to your cart you can continue shopping or view your cart
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Keep Shopping</button>
+                <a href="/home/viewcart" class="btn btn-success" id="view-cart">View Cart</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section scripts{
+
+    <script src="~/js/productpage.js"></script>
+}
